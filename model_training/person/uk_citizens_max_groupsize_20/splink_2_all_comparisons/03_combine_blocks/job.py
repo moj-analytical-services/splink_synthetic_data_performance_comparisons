@@ -72,9 +72,7 @@ name_occ_json = read_json_from_s3(name_occ_path)
 name_occ_model = load_model_from_dict(name_occ_json)
 
 
-cc_pc = name_occ_model.current_settings_obj.get_comparison_column(
-    "custom_postcode_distance_comparison"
-)
+cc_pc = name_occ_model.current_settings_obj.get_comparison_column("postcode")
 
 
 # Same thing from the surname/postcode blocking job
@@ -107,11 +105,13 @@ global_settings_dict = mc.get_combined_settings_dict()
 # Now we have global settings, we just need a set of blocking rules to produce potential matches
 
 global_settings_dict["blocking_rules"] = [
-    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm",
-    "l.surname_dm = r.surname_dm and l.occupation = r.occupation",
-    "l.postcode = r.postcode",
+    "l.outward_postcode_std = r.outward_postcode_std and l.dob = r.dob",
+    "l.postcode = r.postcode and l.dob_year = r.dob_year",
+    "l.postcode = r.postcode and l.dob_month = r.dob_month",
+    "l.postcode = r.postcode and l.dob_day = r.dob_day",
+    "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.dob_year = r.dob_year",
+    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.dob_year = r.dob_year",
     "l.cluster = r.cluster",
-    "l.dob = r.dob",
 ]
 
 path = os.path.join(paths["training_combined_model_path"], "combined_settings.json")
