@@ -48,6 +48,9 @@ settings = {
         },
         {
             "col_name": "forename2_std",
+            "case_expression": sql_gen_case_stmt_jaro_4("forename2_std"),
+            "num_levels": 4,
+            "term_frequency_adjustments": True,
         },
         {
             "col_name": "occupation",
@@ -58,9 +61,10 @@ settings = {
             "col_name": "dob",
             "case_expression": dob_case_statement_leven("dob"),
             "num_levels": 4,
+            "term_frequency_adjustments": True,
         },
         {
-            "custom_name": "custom_postcode_distance_comparison",
+            "custom_name": "postcode",
             "custom_columns_used": [
                 "postcode",
                 "lat_lng",
@@ -68,8 +72,8 @@ settings = {
             ],
             "case_expression": postcode_custom_expression,
             "num_levels": 5,
+            "term_frequency_adjustments": True,
         },
     ],
     "additional_columns_to_retain": ["cluster", "source_dataset"],
-    "em_convergence": 0.01,
 }

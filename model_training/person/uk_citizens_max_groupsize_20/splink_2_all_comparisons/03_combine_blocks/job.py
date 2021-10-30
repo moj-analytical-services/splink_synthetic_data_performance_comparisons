@@ -72,9 +72,7 @@ name_occ_json = read_json_from_s3(name_occ_path)
 name_occ_model = load_model_from_dict(name_occ_json)
 
 
-cc_pc = name_occ_model.current_settings_obj.get_comparison_column(
-    "custom_postcode_distance_comparison"
-)
+cc_pc = name_occ_model.current_settings_obj.get_comparison_column("postcode")
 
 
 # Same thing from the surname/postcode blocking job

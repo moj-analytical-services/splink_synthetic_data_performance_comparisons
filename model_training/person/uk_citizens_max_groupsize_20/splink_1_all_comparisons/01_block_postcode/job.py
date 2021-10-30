@@ -100,7 +100,7 @@ settings_obj.settings_dict["blocking_rules"] = [
     "l.postcode = r.postcode",
 ]
 
-settings_obj.remove_comparison_column("custom_postcode_distance_comparison")
+settings_obj.remove_comparison_column("postcode")
 
 settings_obj.settings_dict["retain_intermediate_calculation_columns"] = False
 settings_obj.settings_dict["retain_matching_columns"] = False

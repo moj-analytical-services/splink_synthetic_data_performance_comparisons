@@ -44,13 +44,12 @@ uk_citizens_max_groupsize_20_splink_v2 = {
     "cluster_generation/person/uk_citizens_max_groupsize_20/splink_2_all_comparisons/01_cluster": {
         "role": ROLE,
         "snapshot_date": "2021-01-01",
-        "list_python_modules": ["graphframes==0.6"],
         "allocated_capacity": 6,
         "version": "v01",
         "remove_python_modules": ["splink"],
         "additional_job_args": {
             "--conf": (
-                "spark.jars.packages=graphframes:graphframes:0.6.0-spark2.3-s_2.11"
+                "spark.jars.packages=graphframes:graphframes:0.8.2-spark3.1-s_2.12"
             )
         },
     },

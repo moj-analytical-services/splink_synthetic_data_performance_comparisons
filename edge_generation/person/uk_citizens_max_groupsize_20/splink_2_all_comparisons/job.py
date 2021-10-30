@@ -5,6 +5,10 @@ import os
 import json
 from math import ceil
 
+from dataengineeringutils3.s3 import (
+    read_json_from_s3,
+)
+
 from awsglue.utils import getResolvedOptions
 from pyspark.context import SparkContext
 from awsglue.context import GlueContext
@@ -75,8 +79,9 @@ paths = get_paths_from_job_path(
 for k, v in paths.items():
     custom_log.info(f"{k:<50} {v}")
 
-with open("model.json") as file:
-    settings = json.load(file)
+settings_path = paths["training_combined_model_path"]
+settings_path = os.path.join(settings_path, "combined_settings.json")
+settings = read_json_from_s3(settings_path)
 
 PERSON_STANDARDISED_NODES_PATH = paths["standardised_nodes_path"]
 PERSON_STANDARDISED_NODES_PATH = PERSON_STANDARDISED_NODES_PATH.replace(

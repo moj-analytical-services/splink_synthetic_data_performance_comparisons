@@ -159,6 +159,7 @@ def run_job(
 
     job.job_name = job_name
     job.allocated_capacity = allocated_capacity
+    job._glue_version = "3.0"
 
     start_time = time.time()
     try:
