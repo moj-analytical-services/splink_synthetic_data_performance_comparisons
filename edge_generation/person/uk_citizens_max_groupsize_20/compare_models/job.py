@@ -15,12 +15,8 @@ from awsglue.context import GlueContext
 
 import pyspark.sql.functions as f
 
-from dataengineeringutils3.s3 import (
-    write_local_file_to_s3,
-    delete_s3_folder_contents,
-)
+from dataengineeringutils3.s3 import delete_s3_folder_contents, write_local_file_to_s3
 from splink import Splink
-from splink.diagnostics import splink_score_histogram
 
 
 from constants import (
@@ -48,6 +44,7 @@ args = getResolvedOptions(
         "commit_hash",
         "trial_run",
         "version",
+        "job_name_override",
     ],
 )
 
@@ -68,24 +65,29 @@ custom_log = get_custom_logger(args["JOB_RUN_ID"])
 
 custom_log.info(f"Snapshot date is {args['snapshot_date']}")
 
+job_name_override = args["job_name_override"]
+# Output paths can be derived from the path
 paths = get_paths_from_job_path(
     args["job_path"],
     args["snapshot_date"],
     args["version"],
     trial_run=trial_run,
+    job_name=job_name_override,
     blocking_group="combine_blocks",
 )
 
 for k, v in paths.items():
     custom_log.info(f"{k:<50} {v}")
 
+
 settings_path = paths["training_combined_model_path"]
-settings_path = os.path.join(settings_path, "combined_settings.json")
+settings_path = os.path.join(settings_path, "final_settings.json")
+
 settings = read_json_from_s3(settings_path)
 
 PERSON_STANDARDISED_NODES_PATH = paths["standardised_nodes_path"]
 PERSON_STANDARDISED_NODES_PATH = PERSON_STANDARDISED_NODES_PATH.replace(
-    "splink_2_all_comparisons", "basic"
+    job_name_override, "basic"
 )
 
 person_standarised_nodes = spark.read.parquet(PERSON_STANDARDISED_NODES_PATH)
@@ -126,20 +128,17 @@ if "temp_files" in paths["scored_tempfiles_path"]:
     delete_s3_folder_contents(paths["scored_tempfiles_path"])
 
 
-# # Persist final version of charts into 'charts' folder
-# chart_name = "final_splink_charts_edge_generation.html"
-# linker.model.all_charts_write_html_file(filename=chart_name, overwrite=True)
-# charts_dir = paths["charts_directory_path"]
-# path = os.path.join(charts_dir, chart_name)
-# write_local_file_to_s3(chart_name, path, overwrite=True)
+# Persist final version of charts into 'charts' folder
+chart_name = "final_splink_charts_edge_generation.html"
+linker.model.all_charts_write_html_file(filename=chart_name, overwrite=True)
+charts_dir = paths["charts_directory_path"]
+path = os.path.join(charts_dir, chart_name)
+write_local_file_to_s3(chart_name, path, overwrite=True)
 
-# # Persist histogram of splink score
-# df_e = spark.read.parquet(paths["edges_path"])
+# Persist histogram of splink score
+df_e = spark.read.parquet(paths["edges_path"])
 
-# chart = splink_score_histogram(df_e, spark, 100)
-# chart_name = "splink_scores_histogram.html"
-# chart.save(chart_name)
 
-# charts_dir = paths["charts_directory_path"]
-# path = os.path.join(charts_dir, chart_name)
-# write_local_file_to_s3(chart_name, path, overwrite=True)
+charts_dir = paths["charts_directory_path"]
+path = os.path.join(charts_dir, chart_name)
+write_local_file_to_s3(chart_name, path, overwrite=True)

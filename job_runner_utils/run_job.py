@@ -113,6 +113,7 @@ def run_job(
     log_job_def=False,
     additional_job_args={},
     remove_python_modules=[],
+    job_name_override=None,
 ):
 
     if job_name is None:
@@ -139,6 +140,8 @@ def run_job(
     job_arguments["--additional-python-modules"] = get_python_modules(
         list_python_modules, remove_python_modules
     )
+    if job_name_override:
+        job_arguments["--job_name_override"] = job_name_override
 
     if spark_ui:
         ui_args = {

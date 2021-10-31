@@ -29,11 +29,13 @@ args = getResolvedOptions(
         "commit_hash",
         "trial_run",
         "version",
+        "job_name_override",
     ],
 )
 
-trial_run = args["trial_run"] == "true"
 
+trial_run = args["trial_run"] == "true"
+job_name_override = args["job_name_override"]
 # Set up a custom logger than outputs to its own stream, grouped within the job run id
 # to separate out custom logs from general spark logs
 custom_log = get_custom_logger(args["JOB_RUN_ID"])
@@ -43,7 +45,11 @@ custom_log.info(f"Snapshot date is {args['snapshot_date']}")
 
 # Output paths can be derived from the path
 paths = get_paths_from_job_path(
-    args["job_path"], args["snapshot_date"], args["version"], trial_run=trial_run
+    args["job_path"],
+    args["snapshot_date"],
+    args["version"],
+    trial_run=trial_run,
+    job_name=job_name_override,
 )
 for k, v in paths.items():
     custom_log.info(f"{k:<50} {v}")
@@ -54,7 +60,7 @@ PERSON_STANDARDISED_NODES_PATH = paths["standardised_nodes_path"]
 
 
 PERSON_STANDARDISED_NODES_PATH = PERSON_STANDARDISED_NODES_PATH.replace(
-    "splink_2_all_comparisons", "basic"
+    job_name_override, "basic"
 )
 
 df_standardised_nodes = spark.read.parquet(PERSON_STANDARDISED_NODES_PATH)
