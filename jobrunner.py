@@ -49,10 +49,10 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    print("Your argument values are:")
+    # print("Your argument values are:")
     print(f'job_path is string "{args.job_path}"')
-    print(f'snapshot_date is string "{args.snapshot_date}"')
-    print(f"trial_run is boolean {args.trial_run}")
+    # print(f'snapshot_date is string "{args.snapshot_date}"')
+    # print(f"trial_run is boolean {args.trial_run}")
 
     # Retrieve job args from dict
     if args.job_path:
@@ -77,7 +77,7 @@ if __name__ == "__main__":
         if args.job_name_override:
             job_args["job_name_override"] = args.job_name_override
 
-        print(job_args)
+        # print(job_args)
         run_job(**job_args)
     else:
         for k in jobs.keys():

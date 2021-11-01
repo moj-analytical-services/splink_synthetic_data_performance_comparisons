@@ -76,8 +76,8 @@ paths = get_paths_from_job_path(
     blocking_group="combine_blocks",
 )
 
-for k, v in paths.items():
-    custom_log.info(f"{k:<50} {v}")
+# for k, v in paths.items():
+#     custom_log.info(f"{k:<50} {v}")
 
 
 settings_path = paths["training_combined_model_path"]

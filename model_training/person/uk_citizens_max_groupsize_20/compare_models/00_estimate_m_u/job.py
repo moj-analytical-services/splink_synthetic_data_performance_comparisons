@@ -67,7 +67,7 @@ custom_log = get_custom_logger(args["JOB_RUN_ID"])
 
 custom_log.info(f"Snapshot date is {args['snapshot_date']}")
 
-custom_log.info(args)
+# custom_log.info(args)
 
 
 job_name_override = args["job_name_override"]
@@ -80,8 +80,8 @@ paths = get_paths_from_job_path(
     job_name=job_name_override,
 )
 
-for k, v in paths.items():
-    custom_log.info(f"{k:<50} {v}")
+# for k, v in paths.items():
+#     custom_log.info(f"{k:<50} {v}")
 
 PERSON_STANDARDISED_NODES_PATH = paths["standardised_nodes_path"]
 PERSON_STANDARDISED_NODES_PATH = PERSON_STANDARDISED_NODES_PATH.replace(
@@ -130,7 +130,7 @@ settings_with_u_dict = estimate_u_values(
 for c in settings["comparison_columns"]:
     c["term_frequency_adjustments"] = False
 
-# We're blocking on PNC ID, so we need to remove that comparison column
+settings["blocking_rules"] = ["l.cluster = r.cluster"]
 settings_obj = Settings(settings)
 
 
@@ -146,6 +146,15 @@ model = Model(settings_obj.settings_dict, spark)
 run_maximisation_step(df_e, model, spark)
 settings_with_m_dict = model.current_settings_obj.settings_dict
 
+
+match_count = df_e.count()
+
+n = person_standardised_nodes.count()
+total_comparisons = n * (n - 1) / 2
+
+lam = match_count / total_comparisons
+settings_with_u_dict["proportion_of_matches"] = lam
+
 # We want to add m probabilities from these estimates to the settings_with_u object
 settings_with_u_obj = Settings(settings_with_u_dict)
 
@@ -159,6 +168,6 @@ s3_output_path = os.path.join(
 )
 
 
-write_json_to_s3(settings_with_u_dict, s3_output_path)
+write_json_to_s3(settings_with_u_obj.settings_dict, s3_output_path)
 
 custom_log.info(f"Written settings dict to to {s3_output_path}")

@@ -168,16 +168,17 @@ def run_job(
     try:
         job.run_job()
 
-        logger.info("Job arguments are:")
-        logger.info(json.dumps(job_arguments, indent=4))
+        # logger.info("Job arguments are:")
+        # logger.info(json.dumps(job_arguments, indent=4))
+        logger.info(f"{job_name_override=}")
         if log_job_def:
             logger.info("ETL_manager job defininition is:")
             logger.info(json.dumps(job._job_definition(), indent=4))
             logger.info("Initial Glue Job status is:")
             logger.info(pprint.pprint(job.job_status, indent=2))
 
-        clickable_glue_links(job, logger)
-        clickable_s3_links(job_arguments, logger)
+        # clickable_glue_links(job, logger)
+        # clickable_s3_links(job_arguments, logger)
 
         job.wait_for_completion()
 

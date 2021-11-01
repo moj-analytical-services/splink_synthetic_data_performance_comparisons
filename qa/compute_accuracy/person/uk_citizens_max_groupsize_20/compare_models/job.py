@@ -58,8 +58,8 @@ output_paths = get_paths_from_job_path(
 )
 
 
-for k, v in output_paths.items():
-    custom_log.info(f"{k:<50} {v}")
+# for k, v in output_paths.items():
+#     custom_log.info(f"{k:<50} {v}")
 
 
 # Create labelled data from person id
