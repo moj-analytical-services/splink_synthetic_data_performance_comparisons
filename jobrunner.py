@@ -10,21 +10,15 @@ logger = logging.getLogger(__name__)
 from job_configs.uk_citizens_max_groupsize_20 import (
     uk_citizens_max_groupsize_20,
 )
-from job_configs.uk_citizens_max_groupsize_20_splink_v2 import (
-    uk_citizens_max_groupsize_20_splink_v2,
-)
+from job_configs.compare_models import compare_models
 
-from job_configs.uk_citizens_max_groupsize_20_splink_v1 import (
-    uk_citizens_max_groupsize_20_splink_v1,
-)
 
 from job_runner_utils.run_job import run_job
 
 
 jobs = {
     **uk_citizens_max_groupsize_20,
-    **uk_citizens_max_groupsize_20_splink_v2,
-    **uk_citizens_max_groupsize_20_splink_v1,
+    **compare_models,
 }
 
 for k, j in jobs.items():
@@ -47,16 +41,18 @@ if __name__ == "__main__":
         "--version", type=str, help="snapshot date as string e.g. 2020-01-01"
     )
 
+    parser.add_argument("--job_name_override", type=str, help="job name oberride")
+
     parser.add_argument("--trial_run", action="store_true", help="")
 
     parser.add_argument("--log_job_def", action="store_true", help="")
 
     args = parser.parse_args()
 
-    print("Your argument values are:")
+    # print("Your argument values are:")
     print(f'job_path is string "{args.job_path}"')
-    print(f'snapshot_date is string "{args.snapshot_date}"')
-    print(f"trial_run is boolean {args.trial_run}")
+    # print(f'snapshot_date is string "{args.snapshot_date}"')
+    # print(f"trial_run is boolean {args.trial_run}")
 
     # Retrieve job args from dict
     if args.job_path:
@@ -78,7 +74,10 @@ if __name__ == "__main__":
         if args.snapshot_date:
             job_args["snapshot_date"] = args.snapshot_date
 
-        print(job_args)
+        if args.job_name_override:
+            job_args["job_name_override"] = args.job_name_override
+
+        # print(job_args)
         run_job(**job_args)
     else:
         for k in jobs.keys():

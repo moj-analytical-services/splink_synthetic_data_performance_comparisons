@@ -113,6 +113,7 @@ def run_job(
     log_job_def=False,
     additional_job_args={},
     remove_python_modules=[],
+    job_name_override=None,
 ):
 
     if job_name is None:
@@ -139,6 +140,8 @@ def run_job(
     job_arguments["--additional-python-modules"] = get_python_modules(
         list_python_modules, remove_python_modules
     )
+    if job_name_override:
+        job_arguments["--job_name_override"] = job_name_override
 
     if spark_ui:
         ui_args = {
@@ -165,16 +168,17 @@ def run_job(
     try:
         job.run_job()
 
-        logger.info("Job arguments are:")
-        logger.info(json.dumps(job_arguments, indent=4))
+        # logger.info("Job arguments are:")
+        # logger.info(json.dumps(job_arguments, indent=4))
+        logger.info(f"{job_name_override=}")
         if log_job_def:
             logger.info("ETL_manager job defininition is:")
             logger.info(json.dumps(job._job_definition(), indent=4))
             logger.info("Initial Glue Job status is:")
             logger.info(pprint.pprint(job.job_status, indent=2))
 
-        clickable_glue_links(job, logger)
-        clickable_s3_links(job_arguments, logger)
+        # clickable_glue_links(job, logger)
+        # clickable_s3_links(job_arguments, logger)
 
         job.wait_for_completion()
 
