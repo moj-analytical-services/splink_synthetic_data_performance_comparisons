@@ -29,6 +29,7 @@ from splink_settings import (
     model_02_fuzzy_simple,
     model_03_fuzzy_complex,
     model_04_fuzzy_complex_and_tf,
+    model_05_fuzzy_complex_and_tf_weights,
 )
 
 sc = SparkContext()
@@ -115,6 +116,9 @@ if job_name_override == "model_03_fuzzy_complex":
 if job_name_override == "model_04_fuzzy_complex_and_tf":
     settings = model_04_fuzzy_complex_and_tf
     custom_log.info("Using settings: model_04_fuzzy_complex_and_tf")
+if job_name_override == "model_05_fuzzy_complex_and_tf_weights":
+    settings = model_05_fuzzy_complex_and_tf_weights
+    custom_log.info("Using settings: model_05_fuzzy_complex_and_tf_weights")
 
 
 # Estimate u params for all columns from cartesian product

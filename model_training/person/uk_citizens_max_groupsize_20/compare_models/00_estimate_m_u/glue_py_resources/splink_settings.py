@@ -200,11 +200,63 @@ model_04_fuzzy_complex_and_tf = {
             "custom_columns_used": [
                 "postcode",
                 "lat_lng",
-                "birth_place",
             ],
             "case_expression": postcode_custom_expression_5,
             "num_levels": 5,
             "term_frequency_adjustments": True,
+        },
+    ],
+    "additional_columns_to_retain": ["cluster"],
+}
+
+model_05_fuzzy_complex_and_tf_weights = {
+    "link_type": "dedupe_only",
+    "unique_id_column_name": "unique_id",
+    "blocking_rules": blocking_rules,
+    "comparison_columns": [
+        {
+            "col_name": "surname_std",
+            "case_expression": sql_gen_case_stmt_jaro_4("surname_std"),
+            "num_levels": 4,
+            "term_frequency_adjustments": True,
+            "tf_adjustment_weights": [0, 0.2, 0.5, 1],
+        },
+        {
+            "col_name": "forename1_std",
+            "case_expression": sql_gen_case_stmt_jaro_4("forename1_std"),
+            "num_levels": 4,
+            "term_frequency_adjustments": True,
+            "tf_adjustment_weights": [0, 0.2, 0.5, 1],
+        },
+        {
+            "col_name": "forename2_std",
+            "case_expression": sql_gen_case_stmt_jaro_4("forename2_std"),
+            "num_levels": 4,
+            "term_frequency_adjustments": True,
+            "tf_adjustment_weights": [0, 0.2, 0.5, 1],
+        },
+        {
+            "col_name": "occupation",
+            "num_levels": 2,
+            "term_frequency_adjustments": True,
+        },
+        {
+            "col_name": "dob",
+            "case_expression": dob_case_statement_leven_4("dob"),
+            "num_levels": 4,
+            "term_frequency_adjustments": True,
+            "tf_adjustment_weights": [0, 0.2, 0.5, 1],
+        },
+        {
+            "custom_name": "postcode",
+            "custom_columns_used": [
+                "postcode",
+                "lat_lng",
+            ],
+            "case_expression": postcode_custom_expression_5,
+            "num_levels": 5,
+            "term_frequency_adjustments": True,
+            "tf_adjustment_weights": [0, 0, 0.2, 0.5, 1],
         },
     ],
     "additional_columns_to_retain": ["cluster"],
