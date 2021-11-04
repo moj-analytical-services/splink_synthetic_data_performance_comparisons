@@ -11,15 +11,13 @@ from job_configs.uk_citizens_max_groupsize_20 import (
     uk_citizens_max_groupsize_20,
 )
 from job_configs.compare_models import compare_models
+from job_configs.compare_trained_models import compare_trained_models
 
 
 from job_runner_utils.run_job import run_job
 
 
-jobs = {
-    **uk_citizens_max_groupsize_20,
-    **compare_models,
-}
+jobs = {**uk_citizens_max_groupsize_20, **compare_models, **compare_trained_models}
 
 for k, j in jobs.items():
     j["job_path"] = k
