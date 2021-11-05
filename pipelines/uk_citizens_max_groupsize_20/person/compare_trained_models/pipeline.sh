@@ -7,5 +7,36 @@ set -o pipefail
 # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/01_block_postcode_dob --job_name_override=model_01_two_levels_trained
 # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/02_block_name --job_name_override=model_01_two_levels_trained
 python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/03_combine_blocks --job_name_override=model_01_two_levels_trained
+python jobrunner.py --job_path edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models --job_name_override=model_01_two_levels_trained
+python jobrunner.py --job_path qa/compute_accuracy/person/uk_citizens_max_groupsize_20/compare_models --job_name_override=model_01_two_levels_trained
 
 
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/00_estimate_u --job_name_override=model_02_fuzzy_simple_trained
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/01_block_postcode_dob --job_name_override=model_02_fuzzy_simple_trained
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/02_block_name --job_name_override=model_02_fuzzy_simple_trained
+python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/03_combine_blocks --job_name_override=model_02_fuzzy_simple_trained
+python jobrunner.py --job_path edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models --job_name_override=model_02_fuzzy_simple_trained
+python jobrunner.py --job_path qa/compute_accuracy/person/uk_citizens_max_groupsize_20/compare_models --job_name_override=model_02_fuzzy_simple_trained
+
+
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/00_estimate_u --job_name_override=model_03_fuzzy_complex_trained
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/01_block_postcode_dob --job_name_override=model_03_fuzzy_complex_trained
+# # python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/02_block_name --job_name_override=model_03_fuzzy_complex_trained
+python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/03_combine_blocks --job_name_override=model_03_fuzzy_complex_trained
+python jobrunner.py --job_path edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models --job_name_override=model_03_fuzzy_complex_trained
+python jobrunner.py --job_path qa/compute_accuracy/person/uk_citizens_max_groupsize_20/compare_models --job_name_override=model_03_fuzzy_complex_trained
+
+
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/00_estimate_u --job_name_override=model_04_fuzzy_complex_and_tf_trained
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/01_block_postcode_dob --job_name_override=model_04_fuzzy_complex_and_tf_trained
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/02_block_name --job_name_override=model_04_fuzzy_complex_and_tf_trained
+python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/03_combine_blocks --job_name_override=model_04_fuzzy_complex_and_tf_trained
+python jobrunner.py --job_path edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models --job_name_override=model_04_fuzzy_complex_and_tf_trained
+python jobrunner.py --job_path qa/compute_accuracy/person/uk_citizens_max_groupsize_20/compare_models --job_name_override=model_04_fuzzy_complex_and_tf_trained
+
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/00_estimate_u --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/01_block_postcode_dob --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/02_block_name --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained
+# python jobrunner.py --job_path model_training/person/uk_citizens_max_groupsize_20/compare_trained_models/03_combine_blocks --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained
+# python jobrunner.py --job_path edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained
+# python jobrunner.py --job_path qa/compute_accuracy/person/uk_citizens_max_groupsize_20/compare_models --job_name_override=model_05_fuzzy_complex_and_tf_weights_trained

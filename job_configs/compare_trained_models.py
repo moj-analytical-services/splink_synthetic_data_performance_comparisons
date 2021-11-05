@@ -40,13 +40,6 @@ compare_trained_models = {
         "version": "v01",
         "remove_python_modules": ["splink"],
     },
-    "edge_generation/person/uk_citizens_max_groupsize_20/compare_trained_models_rules_based": {
-        "role": ROLE,
-        "snapshot_date": "2021-01-01",
-        "allocated_capacity": 8,
-        "version": "v01",
-        "remove_python_modules": ["splink"],
-    },
     "cluster_generation/person/uk_citizens_max_groupsize_20/compare_trained_models/01_cluster": {
         "role": ROLE,
         "snapshot_date": "2021-01-01",

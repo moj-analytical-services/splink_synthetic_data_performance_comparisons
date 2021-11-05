@@ -22,6 +22,10 @@ from splink.settings import Settings
 
 from splink_settings import (
     model_01_two_levels_trained,
+    model_02_fuzzy_simple_trained,
+    model_03_fuzzy_complex_trained,
+    model_04_fuzzy_complex_and_tf_trained,
+    model_05_fuzzy_complex_and_tf_weights_trained,
 )
 
 sc = SparkContext()
@@ -99,6 +103,18 @@ blocked_comparisons_to_s3 = curried_blocked_comparisons_to_s3(
 if job_name_override == "model_01_two_levels_trained":
     settings = model_01_two_levels_trained
     custom_log.info("Using settings: model_01_two_levels_trained")
+if job_name_override == "model_02_fuzzy_simple_trained":
+    settings = model_02_fuzzy_simple_trained
+    custom_log.info("Using settings: model_02_fuzzy_simple_trained")
+if job_name_override == "model_03_fuzzy_complex_trained":
+    settings = model_03_fuzzy_complex_trained
+    custom_log.info("Using settings: model_03_fuzzy_complex_trained")
+if job_name_override == "model_04_fuzzy_complex_and_tf_trained":
+    settings = model_04_fuzzy_complex_and_tf_trained
+    custom_log.info("Using settings: model_04_fuzzy_complex_and_tf_trained")
+if job_name_override == "model_05_fuzzy_complex_and_tf_weights_trained":
+    settings = model_05_fuzzy_complex_and_tf_weights_trained
+    custom_log.info("Using settings: model_05_fuzzy_complex_and_tf_weights_trained")
 
 
 # Estimate u params for all columns from cartesian product
@@ -109,10 +125,6 @@ settings_with_u_dict = estimate_u_values(
     target_rows=target_rows,
     fix_u_probabilities=True,
 )
-
-# Skip tf adjustments, not needed to estimate m
-for c in settings["comparison_columns"]:
-    c["term_frequency_adjustments"] = False
 
 
 settings_obj = Settings(settings)
