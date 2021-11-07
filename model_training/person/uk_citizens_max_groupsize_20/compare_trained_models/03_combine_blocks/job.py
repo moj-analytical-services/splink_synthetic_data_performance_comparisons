@@ -111,13 +111,31 @@ global_settings_dict = mc.get_combined_settings_dict()
 # Now we have global settings, we just need a set of blocking rules to produce potential matches
 
 global_settings_dict["blocking_rules"] = [
-    "l.outward_postcode_std = r.outward_postcode_std and l.dob = r.dob",
     "l.postcode = r.postcode and l.dob_year = r.dob_year",
     "l.postcode = r.postcode and l.dob_month = r.dob_month",
     "l.postcode = r.postcode and l.dob_day = r.dob_day",
+    "l.postcode = r.postcode and l.forename1_dm = r.forename1_dm",
+    "l.postcode = r.postcode and l.forename2_dm = r.forename2_dm",
+    "l.postcode = r.postcode and l.surname_dm = r.surname_dm",
+    "l.dob = r.dob and l.outward_postcode_std = r.outward_postcode_std",
+    "l.dob = r.dob and l.inward_postcode_std = r.inward_postcode_std",
+    "l.dob = r.dob and l.forename1_dm = r.forename1_dm",
+    "l.dob = r.dob and l.forename2_dm = r.forename2_dm",
+    "l.dob = r.dob and l.surname_dm = r.surname_dm",
     "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.dob_year = r.dob_year",
     "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.dob_year = r.dob_year",
-    "l.cluster = r.cluster",
+    "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.dob_month = r.dob_month",
+    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.dob_month = r.dob_month",
+    "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.dob_day = r.dob_day",
+    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.dob_day = r.dob_day",
+    "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.inward_postcode_std = r.inward_postcode_std",
+    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.inward_postcode_std = r.inward_postcode_std",
+    "l.forename1_dm = r.forename1_dm and l.occupation = r.occupation and l.outward_postcode_std = r.outward_postcode_std",
+    "l.forename1_dm = r.forename1_dm and l.surname_dm = r.surname_dm and l.outward_postcode_std = r.outward_postcode_std",
+    "l.surname_std = r.surname_std and l.outward_postcode_std = r.outward_postcode_std",
+    "l.surname_std = r.surname_std and l.inward_postcode_std = r.inward_postcode_std",
+    "l.forename1_std = r.forename1_std and l.forename2_std = r.forename2_std",
+    # "l.cluster = r.cluster",
 ]
 
 path = os.path.join(paths["training_combined_model_path"], "combined_settings.json")
